@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pr.LoginMapper">
+	<resultMap type="com.pr.dto.UserDto" id="UserDto">
+		<result column="PR_NO" property="pr_no" />
+		<result column="PR_ID" property="pr_id" />
+		<result column="PR_PW" property="pr_pw" />
+		<result column="PR_NAME" property="pr_name" />
+		<result column="PR_ADDR" property="pr_addr" />
+		<result column="PR_PHONE" property="pr_phone" />
+		<result column="PR_EMAIL" property="pr_email" />
+		<result column="PR_ENABLED" property="pr_enabled" />
+		<result column="PR_ROLE" property="pr_role" />
+	</resultMap>
+	
+	<select id="selectAllUser" resultMap="UserDto">
+		SELECT * FROM PR_USERINFO ORDER BY PR_NO
+	</select>
+	
+	<select id="login" resultMap="UserDto" parameterType="UserDto">
+		SELECT * FROM PR_USERINFO WHERE PR_ID=#{pr_id } AND PR_PW=#{pr_pw }
+	</select>
+	
+	<select id="selectOneUser" resultMap="UserDto" parameterType="int">
+		SELECT  * FROM PR_USERINFO WHERE PR_NO = #{pr_no }
+	</select>
+	
+	<select id="selectOneId" resultMap="UserDto" parameterType="String">
+		SELECT  * FROM PR_USERINFO WHERE PR_ID = #{pr_id }
+	</select>
+	
+	<insert id="join" parameterType="UserDto">
+		INSERT INTO PR_USERINFO VALUES (PR_MEMBERSQ.NEXTVAL, #{pr_id}, #{pr_pw}, #{pr_name}, #{pr_addr}, #{pr_phone}, #{pr_email}, 'y', 'USER')
+	</insert>
+	
+	<select id="selectUserNo" resultMap="UserDto" parameterType="String">
+		SELECT PR_NO FROM PR_USERINFO WHERE PR_ID = #{pr_no}
+	</select>
+</mapper>
