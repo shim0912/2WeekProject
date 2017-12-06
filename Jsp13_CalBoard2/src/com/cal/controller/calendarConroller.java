@@ -32,6 +32,7 @@ public class calendarConroller extends HttpServlet {
 
 		if (command.equals("calendar")) {
 			response.sendRedirect("calendar.jsp");
+			System.out.println("command : " + command);
 
 		} else if (command.equals("calList")) {
 			String year = request.getParameter("year");
